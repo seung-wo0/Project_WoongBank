@@ -6,7 +6,7 @@
 
 인원 : 1 명
 
-개발 기간 : [2024.12.??] ~ 진행중
+개발 기간 : [2024.12.??]
 
 # [구현 예정 기능]
 
@@ -23,6 +23,12 @@
 ---
 
 # 추후 Readme.md 수정
+
+---
+
+# DB 설계도
+
+<img src="https://github.com/user-attachments/assets/028db3a4-7e8a-4c1e-b2f4-5a8c7fcd6b09" width="100%" title="DB 설계도" />
 
 ---
 
