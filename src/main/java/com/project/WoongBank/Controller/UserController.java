@@ -46,7 +46,7 @@ public class UserController {
 //		System.out.println("로그인처리 메서드 진입");
 		String LoginID = req.getParameter("LoginID"); //사용자가 로그인시도한 아이디
 		String LoginPW = req.getParameter("LoginPW"); //사용자가 로그인시도한 비밀번호
-		Map<String, Object> map = new HashMap<>();
+		
 		int LoginChk = userSvc.LoginProc(LoginID, LoginPW); // 계정검증
 		if (LoginChk == 1) { // 검증시 존재하다면
 			UserDto userDto = userSvc.UserInfo(LoginID);

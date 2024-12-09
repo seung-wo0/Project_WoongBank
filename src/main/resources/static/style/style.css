@@ -22,10 +22,48 @@ header#header {
 	padding: 10px;
 }
 
+/*///////////////////////////////////////*/
+/* MenuNav부분 시작(inc/MenuNav_inc.jsp) */
+/*///////////////////////////////////////*/
+div#NavWrap {
+	border: 1px solid red;
+	margin: 10px 0px;
+	padding: 20px;
+	justify-content: space-between;
+}
+
+div#NavWrap span{
+	line-height: 52px;
+	padding: 0 20px;
+}
+
+#NavWrap ul li {
+	border: 1px solid blue;
+	padding: 10px;
+	font-size: 20px;
+	font-weight: bold;
+	cursor: pointer;
+}
+
+#NavWrap ul li:hover {
+	color: lime;
+}
+
+#NavWrap ul li:not(:last-child) {
+	font-size: 20px;
+	margin-right: 10px;
+}
+/*///////////////////////////////////////*/
+/*  MenuNav부분 끝(inc/MenuNav_inc.jsp)  */
+/*///////////////////////////////////////*/
+
 main#main {
 	padding: 20px;
 }
 
+/*/////////////////////////////////*/
+/* 회원가입부분 시작(JoinUser.jsp) */
+/*/////////////////////////////////*/
 #main fieldset#JoinUserFrmfd {
 	padding: 10px;
 }
@@ -65,3 +103,6 @@ main#main {
 #main label input.JoinUserPhone {
 	width: 50px;
 }
+/*/////////////////////////////////*/
+/*  회원가입부분 끝(JoinUser.jsp)  */
+/*/////////////////////////////////*/

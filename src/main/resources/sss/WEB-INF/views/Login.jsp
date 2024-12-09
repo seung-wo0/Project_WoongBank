@@ -10,9 +10,14 @@
 </head>
 <body>
 	<div id="wrap">
-		<!-- header부분 inc 시작 -->
-		<%@ include file="inc/Header_inc.jsp" %>
-		<!-- header부분 inc 끝 -->
+	
+		<header id="header">
+			<!-- header부분 inc 시작 -->
+			<%@ include file="inc/Header_inc.jsp" %>
+			<!-- header부분 inc 끝 -->
+		</header>
+		<!-- header#header -->
+		
 		<main id="main">
 			<form id="LoginFrm" action="">
 				<input id="LoginID" name="LoginID" type="text" placeholder="로그인 할 핸드폰번호">

@@ -10,9 +10,12 @@
 </head>
 <body>
 	<div id="wrap" class="JoinUserWrap">
-		<!-- header부분 inc 시작 -->
-		<%@ include file="inc/Header_inc.jsp" %>
-		<!-- header부분 inc 끝 -->
+		<header id="header">
+			<!-- header부분 inc 시작 -->
+			<%@ include file="inc/Header_inc.jsp" %>
+			<!-- header부분 inc 끝 -->
+			
+		</header>
 		
 		<main id="main">
 			<form action="" id="JoinUserFrm">
