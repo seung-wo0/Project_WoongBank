@@ -50,7 +50,8 @@ public class UserController {
 		int LoginChk = userSvc.LoginProc(LoginID, LoginPW); // 계정검증
 		if (LoginChk == 1) { // 검증시 존재하다면
 			UserDto userDto = userSvc.UserInfo(LoginID);
-			session.setAttribute("UserSession", userDto.getPhone());	
+			session.setAttribute("UserIdSession", userDto.getId());
+			session.setAttribute("UserPhoneSession", userDto.getPhone());	
 			session.setAttribute("UserNameSession", userDto.getUsername());
 			session.setMaxInactiveInterval(10*60*60);
 			

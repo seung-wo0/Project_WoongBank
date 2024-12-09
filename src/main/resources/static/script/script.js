@@ -84,4 +84,11 @@ $(function () {
 	/////////////////////
 	/////////////////////
 	
+
 });
+
+// Nav 메뉴클릭 관련
+function QuickMenuEvent(MenuName) {
+	var ClickMenu = $(MenuName).attr("id").trim();
+		window.location.href = "/"+ClickMenu;
+};
