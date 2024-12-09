@@ -8,16 +8,14 @@
 <!-- 		insert into User (userID, userPW, userPhone, userEmail, Shop_code, Shop_Auth)  -->
 <!-- 		values (#{item1},#{item2},#{item3},#{item4}, 0, 0) -->
 <!-- 	</insert> -->
-
-<!-- 로그인처리 -->
-<!-- 	<select id="LoginProc" resultType="int"> -->
-<!-- 		select count(*) from User where (userID like (#{param1}) or userEmail like (#{param1})) and userPW like(#{param2}) -->
-<!-- 	</select> -->
+	<select id="LoginProc" resultType="int">
+		select count(*) from User where phone like #{param1} and password like #{param2}
+	</select>
 	
 <!-- 회원정보가져오기 -->
-<!-- 	<select id="findMemInfo" resultType="com.project.WoongBank.Dto.UserDto"> -->
-<!-- 		select * from User where userID=#{param1} or userEmail=#{param1} -->
-<!-- 	</select> -->
+	<select id="UserInfo" resultType="com.project.WoongBank.Dto.UserDto">
+		select * from User where phone=#{param1}
+	</select>
 
 <!-- 아이디 중복 체크하기 -->
 <!-- 	<select id="chkID" resultType="int"> -->

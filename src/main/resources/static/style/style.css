@@ -13,3 +13,55 @@ div#wrap {
     border-radius: 6px;
     margin: 20px auto;
 }
+
+header#header {
+	height: 200px;
+	text-align: center;
+	background: gray;
+	margin: 0 auto;
+	padding: 10px;
+}
+
+main#main {
+	padding: 20px;
+}
+
+#main fieldset#JoinUserFrmfd {
+	padding: 10px;
+}
+
+#main fieldset {
+	width: 600px;
+	margin: 0 auto;	
+}
+
+#main fieldset div#JoinBtnArea {
+	margin-top: 40px;
+	margin-bottom: 10px;
+	width: 400px;
+	text-align: center;
+}
+
+#main label {
+	display: block;
+	width: 400px;
+	padding: 10px;
+}
+
+#main label span.JoinUserTitle {
+	display: inline-block;
+	width: 130px;
+}
+
+#main label input {
+	width: 200px;
+}
+
+#main label input,
+#main label select {
+	padding: 2px 5px;
+}
+
+#main label input.JoinUserPhone {
+	width: 50px;
+}

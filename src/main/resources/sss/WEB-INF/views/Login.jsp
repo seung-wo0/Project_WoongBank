@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    
+
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -13,7 +13,6 @@
 		<!-- header부분 inc 시작 -->
 		<%@ include file="inc/Header_inc.jsp" %>
 		<!-- header부분 inc 끝 -->
-		
 		<main id="main">
 			<form id="LoginFrm" action="">
 				<input id="LoginID" name="LoginID" type="text" placeholder="로그인 할 핸드폰번호">
