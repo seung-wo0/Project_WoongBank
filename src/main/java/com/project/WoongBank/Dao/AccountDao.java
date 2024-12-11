@@ -21,4 +21,10 @@ public interface AccountDao {
 	
 	// 보유계좌 리스트출력 메서드
 	List<AccountDto> UserAccountList(int user_id);
+	
+	// 계좌별칭변경을 위한 정보 불러오기 메서드
+	List<AccountDto> UserAccountChangedInfo(String Account_Number);
+	
+	// 계좌별칭변경 처리 메서드
+	int UpdateAccountName(String UserAccountNumber, String ChangeAccountName);
 }

@@ -24,4 +24,14 @@
 		select * from Account where user_id=#{param1};
 	</select>
 	
+	<!-- 계좌별칭 변경을위한 해당계좌정보 불러오기 -->
+	<select id="UserAccountChangedInfo" resultType="com.project.WoongBank.Dto.AccountDto">
+		select * from Account where account_number=#{param1};
+	</select>
+	
+	<!-- 계좌별칭 변경 처리 -->
+	<update id="UpdateAccountName">
+		UPDATE Account SET account_name = #{param2} where account_number = #{param1}
+	</update>
+	
 </mapper>

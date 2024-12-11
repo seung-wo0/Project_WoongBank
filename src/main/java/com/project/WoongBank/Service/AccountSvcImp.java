@@ -35,4 +35,14 @@ public class AccountSvcImp implements AccountSvc {
 
 		return accountDao.UserAccountList(user_id);
 	}
+	
+	@Override
+	public List<AccountDto> UserAccountChangedInfo(String Account_Number) {
+		return accountDao.UserAccountChangedInfo(Account_Number);
+	}
+	
+	@Override
+	public int UpdateAccountName(String UserAccountNumber, String ChangeAccountName) {
+		return accountDao.UpdateAccountName(UserAccountNumber, ChangeAccountName);
+	}
 }

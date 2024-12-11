@@ -59,7 +59,7 @@
 					<c:forEach var="UserAccountList" items="${ UserAccountList }">
 						<tr class="userAccountListCol">
 							<td class="Account_Bank">${ UserAccountList.bank }</td>
-							<td class="Account_Number">
+							<td id="${UserAccountList.account_number}"class="Account_Number">
 								<c:set var="accountStr" value="${UserAccountList.account_number}" />
 								${fn:substring(accountStr, 0, 4)}-${fn:substring(accountStr, 4, 7)}-${fn:substring(accountStr, 7, 13)}
 							</td>

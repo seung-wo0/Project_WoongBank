@@ -84,6 +84,30 @@ public class MenuController {
 		return "Account/Management/AccountCreate";
 	}
 	
+	// 계좌관리 > 계좌별칭변경 페이지
+	@RequestMapping("/ChangedAccountName")
+	public String mtd_ChangedAccountName (HttpServletRequest req, Model model) {
+		String Account_Number  = req.getParameter("Account_Number");
+		List<AccountDto> accountDto = accountSvc.UserAccountChangedInfo(Account_Number);
+		model.addAttribute("UserAccountInfo", accountDto);
+		System.out.println(Account_Number);
+		return "Account/Management/ChangedAccountName";
+	}
+	
+	// 계좌관리 > 계좌별칭변경 처리 페이지
+	@RequestMapping("/ChangedAccountNameProc")
+	public String mtd_ChangedAccountNameProc (HttpServletRequest req, Model model) {
+		String UserAccountNumber = req.getParameter("UserAccountNumber");
+		String ChangeAccountName = req.getParameter("Change_Account_name");
+		System.out.println("별칭변경할 계좌번호 : " + UserAccountNumber);
+		System.out.println("변경 요청 별칭 : " + ChangeAccountName);
+		int updateChk = accountSvc.UpdateAccountName(UserAccountNumber, ChangeAccountName);
+		String updateChkMsg = "변경 실패";
+		if (updateChk == 1) updateChkMsg = "변경 완료";
+		model.addAttribute("ChkMsg", updateChkMsg);
+		return "Account/Management/ChangedAccountNameProc";
+	}
+	
 	// 입출금 페이지
 	@RequestMapping("/Depo_With")
 	public String mtdAccount_Depo_WithMain () {

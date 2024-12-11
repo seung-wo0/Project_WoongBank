@@ -104,6 +104,7 @@ $(function () {
 	//////////////////////////////////////////
 	$(document).ready(function() { 
 		
+		//계좌생성버튼 이벤트
 		$(".UserAccount_add").click(function() {
 			var w = 500;   
 			var h = 200;  
@@ -111,7 +112,31 @@ $(function () {
 			var WindowTitleName = "계좌생성여부체크";
 			NewWindows_open(w, h, url, WindowTitleName);
 		});
-
+		
+		//계좌별칭 변경을 위한이벤트 
+		$("tr.userAccountListCol").click(function(){
+			var clickAccount_Number = $(this).find("td:eq(1)").attr("id");
+//			console.log(clickAccount_Number);
+			var w = 500;
+			var h = 200;
+			var url = "/ChangedAccountName?Account_Number="+clickAccount_Number;
+			var WindowTitleName = "계좌별칭 변경";
+			NewWindows_open(w, h, url, WindowTitleName);
+		});
+		
+		//계좌별칭 변경처리 버튼
+		$(".Change_AccountName_btn").click(function(){
+			var changeName = $("#Change_Account_name").val();
+//			console.log("변경할 별칭 : " + changeName);
+			if (changeName == "" || changeName == null) {
+				alert("별칭을 적어주세요");
+			} else {
+				$("#accuont_name_ChangedFrm").attr("method", "post");
+				$("#accuont_name_ChangedFrm").attr("action", "ChangedAccountNameProc");
+				$(this).attr("type", "submit");
+			}
+		});
+		
 	});
 
 });
