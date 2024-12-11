@@ -106,3 +106,41 @@ main#main {
 /*/////////////////////////////////*/
 /*  회원가입부분 끝(JoinUser.jsp)  */
 /*/////////////////////////////////*/
+
+
+/*/////////////////////////////////////////////*/
+/*  계좌관리부분 시작(Account/Management.jsp)  */
+/*/////////////////////////////////////////////*/
+
+#UserAccountListArea table {
+	border-collapse: collapse;
+}
+
+#UserAccountListArea tr,td {
+	border: 1px solid blue;
+	padding: 10px;
+/* 	font-weight: bold; */
+	text-align: center;
+}
+
+#UserAccountListArea tr.userAccountListCol:hover * {
+	cursor: pointer;
+	font-weight: bold;
+	color: orange;
+}
+
+/*/////////////////////////////////////////////*/
+/*   계좌관리부분 끝(Account/Management.jsp)   */
+/*/////////////////////////////////////////////*/
+
+/*//////////////////////////////////////*/
+/* Footer 부분 시작(inc/Footer_inc.jsp) */
+/*//////////////////////////////////////*/
+
+footer#footer {
+	text-align: center;
+}
+
+/*//////////////////////////////////////*/
+/*  Footer 부분 끝(inc/Footer_inc.jsp)  */
+/*//////////////////////////////////////*/

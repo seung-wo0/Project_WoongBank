@@ -55,7 +55,7 @@ public class UserController {
 			session.setAttribute("UserNameSession", userDto.getUsername());
 			session.setMaxInactiveInterval(10*60*60);
 			
-			System.out.println(userDto);
+//			System.out.println(userDto);
 			return "redirect:/index.sw";
 		} else { // 검증시 존재하지않는다면
 			return "redirect:/";

@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -45,11 +45,34 @@
 					<c:otherwise>
 						<span style="color:blue;">계좌 ${ UserAccountCnt } 개 를 보유중 이므로 계좌 개설이 가능 합니다.</span>
 						<br/>
-						<button type="button" id="UserAccount_add">계좌 생성</button>
 					</c:otherwise>
 				</c:choose>
-			
-			<button type="button" id="UserAccount_del">계좌 삭제</button>
+				
+				<div id="UserAccountListArea">
+				
+					<table>
+						<tr id="AccountListTitle">
+							<td class="Account_Bank">은행명</td>
+							<td class="Account_Number">계좌번호</td>
+							<td class="Account_Name">계좌별칭</td>
+						<tr>
+					<c:forEach var="UserAccountList" items="${ UserAccountList }">
+						<tr class="userAccountListCol">
+							<td class="Account_Bank">${ UserAccountList.bank }</td>
+							<td class="Account_Number">
+								<c:set var="accountStr" value="${UserAccountList.account_number}" />
+								${fn:substring(accountStr, 0, 4)}-${fn:substring(accountStr, 4, 7)}-${fn:substring(accountStr, 7, 13)}
+							</td>
+							<td class="Account_Name">${ UserAccountList.account_name }</td>
+						</tr>
+					</c:forEach>
+					</table>
+					
+				</div>
+				<!-- div#UserAccountListArea -->
+				
+			<c:if test="${ UserAccountCnt < 3 }"><button type="button" id="UserAccount_add" class="UserAccount_add">계좌 생성</button></c:if>
+			<button type="button" id="UserAccount_del" class="UserAccount_del">계좌 삭제</button>
 		</main>
 		<!-- main#main -->
 		

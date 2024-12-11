@@ -1,15 +1,15 @@
 $(function () {
-	////////////////////////////
-	//메인 페이지 관련
-	////////////////////////////
+	//////////////////////
+	// 메인 페이지 관련 //
+	//////////////////////
 	$(document).ready(function() { 
 		
 	});
 	
 	
-	////////////////////////////
-	//로그인 페이지 관련 ("/")
-	////////////////////////////
+	//////////////////////////////
+	// 로그인 페이지 관련 ("/") //
+	//////////////////////////////
 	$(document).ready(function() { 
 		
 		// 로그인버튼 이벤트
@@ -18,6 +18,24 @@ $(function () {
 			$("form#LoginFrm").attr("method","post");
 			$("form#LoginFrm").attr("action", "LoginProc");
 			$("form#LoginFrm").submit();
+		});
+		
+		// id창에서 'Enter' 키 누를시 
+		$("#LoginID").focus(function(){
+			addEventListener("keydown", function(e) {
+				if(e.key == "Enter") {
+					$("#LoginPW").focus();
+				}
+			});
+		});
+		
+		// pw창에서 'Enter' 키 누를시 
+		$("#LoginPW").focus(function(){
+			addEventListener("keydown", function(e) {
+				if(e.key == "Enter") {
+					$(".LoginBtn").click();
+				}
+			});
 		});
 		
 		// 회원가입버튼 이벤트
@@ -33,9 +51,9 @@ $(function () {
 	});
 	
 	
-	////////////////////////////////
-	//회원가입 페이지 관련 ("/Join")
-	////////////////////////////////
+	////////////////////////////////////
+	// 회원가입 페이지 관련 ("/Join") //
+	////////////////////////////////////
 	$(document).ready(function() { 
 		$(".JoinUserProcBtn").click(function(){
 			var blank_pattern = /[\s]/g;
@@ -81,9 +99,20 @@ $(function () {
 	});
 	
 	
-	/////////////////////
-	/////////////////////
-	
+	//////////////////////////////////////////
+	// 계좌관리 페이지 관련(Management.jsp) //
+	//////////////////////////////////////////
+	$(document).ready(function() { 
+		
+		$(".UserAccount_add").click(function() {
+			var w = 500;   
+			var h = 200;  
+			var url = "/AccountCreate";
+			var WindowTitleName = "계좌생성여부체크";
+			NewWindows_open(w, h, url, WindowTitleName);
+		});
+
+	});
 
 });
 
@@ -92,3 +121,14 @@ function QuickMenuEvent(MenuName) {
 	var ClickMenu = $(MenuName).attr("id").trim();
 		window.location.href = "/"+ClickMenu;
 };
+
+//팝업 호출
+function NewWindows_open(w, h, url, WindowTitleName) {
+	// 받아오는 'w' 는 팝업창의 너비
+	// 받아오는 'h' 는 팝업창의 높이
+	
+	LeftPosition=(screen.width-w)/2;
+	TopPosition=(screen.height-h)/2;
+	
+	window.open(url, WindowTitleName, "width="+w+",height="+h+",top="+TopPosition+",left="+LeftPosition+", scrollbars=no");
+}

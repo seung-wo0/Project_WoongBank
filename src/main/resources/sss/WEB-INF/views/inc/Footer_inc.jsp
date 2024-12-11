@@ -3,13 +3,10 @@
     
 <body>
 
-	<div id="footerWrap" class="wrap">
-		<footer id="footer" class="dFlex">
+		<footer id="footer">
 			<p>&copy; 2024. SeungWoo. All rights reserved.</p>
 			<!-- <address>Address. not</address> -->
 		</footer>  
 		<!-- footer#footer -->
-	</div>
-	<!-- div#footerWrap -->
 
 </body>	

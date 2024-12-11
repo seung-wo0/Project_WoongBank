@@ -1,11 +1,24 @@
 package com.project.WoongBank.Dao;
 
+import java.util.List;
+import java.util.Map;
+
 import org.apache.ibatis.annotations.Mapper;
+
+import com.project.WoongBank.Dto.AccountDto;
 
 @Mapper
 public interface AccountDao {
 	
-	//유저의 id로 갖고있는 계좌갯수 체크 메서드
+	// 유저의 id로 갖고있는 계좌갯수 체크 메서드
 	int UserAccountCnt(int UserIdSession);
 	
+	// 계좌생성시 존재하는계좌번호체크 메서드
+	int CreateAccountChk(String AccountAdress);
+	
+	// 계좌생성 처리 메서드
+	int CreateAccountProc(Map<String, Object> map);
+	
+	// 보유계좌 리스트출력 메서드
+	List<AccountDto> UserAccountList(int user_id);
 }

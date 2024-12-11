@@ -22,9 +22,9 @@
 			<form id="LoginFrm" action="">
 				<input id="LoginID" name="LoginID" type="text" placeholder="로그인 할 핸드폰번호">
 				<input id="LoginPW" name="LoginPW" type="password" placeholder="패스워드">
-			</form>
 			<button id="LoginBtn" class="LoginBtn" type="button">로그인</button>
 			<button id="JoinBtn" class="JoinBtn" type="button">회원가입</button>
+			</form>
 		</main>
 	</div>
 	<!-- div#wrap -->

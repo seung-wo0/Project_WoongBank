@@ -2,7 +2,26 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.project.WoongBank.Dao.AccountDao">
+	
+	<!-- 회원의 계좌 갯수-->
 	<select id="UserAccountCnt" resultType="int">
 		select count(*) from Account where user_id=#{param1};
 	</select>
+	
+	<!-- 계좌생성시 이미 존재하는 계좌인지 체크 -->
+	<select id="CreateAccountChk" resultType="int">
+		select count(*) from Account where account_number=#{param1};
+	</select>
+	
+	<!-- 계좌생성 처리 -->
+	<insert id="CreateAccountProc" parameterType="java.util.Map">
+		insert into Account (user_id, bank, account_number, account_name) values
+		(#{item1}, 'Woong', #{item2}, #{item2});
+	</insert>
+	
+	<!-- 계좌생성시 이미 존재하는 계좌인지 체크 -->
+	<select id="UserAccountList" resultType="com.project.WoongBank.Dto.AccountDto">
+		select * from Account where user_id=#{param1};
+	</select>
+	
 </mapper>
