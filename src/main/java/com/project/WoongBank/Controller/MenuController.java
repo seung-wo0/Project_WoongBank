@@ -32,9 +32,10 @@ public class MenuController {
 		if (UserPhoneSession != null || UserPhoneSession !="") {
 			int UserAccountCnt = accountSvc.UserAccountCnt(UserIdSession);
 			model.addAttribute("UserAccountCnt", UserAccountCnt);
-
+			System.out.println("UserAccountCnt : " + UserAccountCnt);
 			if (UserAccountCnt != 0 ) {
 				List<AccountDto> accountDto = accountSvc.UserAccountList(UserIdSession);
+				
 				model.addAttribute("UserAccountList", accountDto);
 			}
 		}
@@ -48,10 +49,12 @@ public class MenuController {
 		int UserIdSession = (int) session.getAttribute("UserIdSession");
 		String UserPhoneSession = (String) session.getAttribute("UserPhoneSession");
 		String UserNameSession = (String) session.getAttribute("UserNameSession");
-		
+		Random random = new Random();
+		String AccountAdress = "7777"+ random.nextInt(100,999) + random.nextInt(100000,999999);
 		if (UserPhoneSession != null || UserPhoneSession !="") {
 			int UserAccountCnt = accountSvc.UserAccountCnt(UserIdSession);
 			model.addAttribute("UserAccountCnt", UserAccountCnt);
+			model.addAttribute("AccountAdress", AccountAdress);
 			
 		}
 		
@@ -106,6 +109,39 @@ public class MenuController {
 		if (updateChk == 1) updateChkMsg = "변경 완료";
 		model.addAttribute("ChkMsg", updateChkMsg);
 		return "Account/Management/ChangedAccountNameProc";
+	}
+	
+	// 계좌관리 > 계좌삭제 페이지
+	@RequestMapping("/AccountRemove")
+	public String mtd_AccountRemove (HttpServletRequest req, Model model, HttpSession session) {
+		int UserIdSession = (int) session.getAttribute("UserIdSession");
+		String UserPhoneSession = (String) session.getAttribute("UserPhoneSession");
+		String UserNameSession = (String) session.getAttribute("UserNameSession");
+		
+		int UserAccountCnt = accountSvc.UserAccountCnt(UserIdSession);
+
+		if (UserAccountCnt != 0 ) {
+			List<AccountDto> accountDto = accountSvc.UserAccountList(UserIdSession);
+			model.addAttribute("UserAccountList", accountDto);
+		}
+		
+		return "Account/Management/AccountRemove";
+	}
+	
+	// 계좌관리 > 계좌삭제 페이지
+	@RequestMapping("/SelectAccountRemoveProc")
+	public String mtd_SelectAccountRemoveProc (HttpServletRequest req, Model model, HttpSession session) {
+		String RemoveAccountNumber = (String) req.getParameter("SelectAccount");
+		System.out.println("RemoveAccountNumber : " + RemoveAccountNumber);
+		int RemoveAccountChk = accountSvc.RemoveUserAccount(RemoveAccountNumber);
+		String RemoveChkMsg = "";
+		if (RemoveAccountChk == 1) {
+			RemoveChkMsg = "[ " +RemoveAccountNumber + " ]"+ "의 계좌가 삭제처리 되었습니다 !";
+		} else {
+			RemoveChkMsg = "[ " +RemoveAccountNumber + " ]"+ "의 계좌가 삭제처리에 실패 하였습니다!";
+		}
+		model.addAttribute("RemoveChkMsg", RemoveChkMsg);
+		return "Account/Management/AccountRemoveProc";
 	}
 	
 	// 입출금 페이지

@@ -60,7 +60,7 @@
 				</c:forEach>
 				<br/><br/>
 				<input type="text" id="Change_Account_name" name="Change_Account_name" placeholder="변경할 별칭을 적어주세요" value="">
-				<button type="button" id="Change_AccountName_btn" class="Change_AccountName_btn">버튼</button>
+				<button type="button" id="Change_AccountName_btn" class="Change_AccountName_btn">변경하기</button>
 			</form>
 			<!-- form#accuont_name_ChangedFrm -->
 			

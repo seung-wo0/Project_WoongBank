@@ -45,4 +45,10 @@ public class AccountSvcImp implements AccountSvc {
 	public int UpdateAccountName(String UserAccountNumber, String ChangeAccountName) {
 		return accountDao.UpdateAccountName(UserAccountNumber, ChangeAccountName);
 	}
+	
+	@Override
+	public int RemoveUserAccount(String RemoveAccountNumber) {
+		return accountDao.RemoveUserAccount(RemoveAccountNumber);
+	}
+	
 }

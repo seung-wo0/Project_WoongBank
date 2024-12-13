@@ -24,4 +24,7 @@ public interface AccountSvc {
 	
 	// 계좌별칭변경 처리 메서드
 	int UpdateAccountName(String UserAccountNumber, String ChangeAccountName);
+	
+	// 계좌삭제 처리 메서드
+	int RemoveUserAccount(String RemoveAccountNumber);
 }

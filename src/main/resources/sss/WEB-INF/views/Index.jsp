@@ -22,6 +22,7 @@
 	window.location.href = "/";
 </script>
 <% } %>
+
 	<div id="wrap">
 	
 		<header id="header">

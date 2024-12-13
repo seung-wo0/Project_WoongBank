@@ -68,6 +68,7 @@ $(function () {
 			var JoinUserPW = $("#JoinUserPW").val();
 			var JoinUserPW2 = $("#JoinUserPW2").val();
 			
+			var JoinUserFrm = $("#JoinUserFrm");
 //			console.log("JoinUserName : " + JoinUserName);
 //			console.log("JoinUserPhone1 : " + JoinUserPhone1);
 //			console.log("JoinUserPhone2 : " + JoinUserPhone2);
@@ -89,9 +90,9 @@ $(function () {
 				alert("패스워드 불일치");
 			} else {
 //				confirm("모든 유효성검사 성공");
-				$("#JoinUserFrm").attr("method", "post");
-				$("#JoinUserFrm").attr("action", "JoinProc");
-				$("#JoinUserFrm").submit();
+				JoinUserFrm.attr("method", "post");
+				JoinUserFrm.attr("action", "JoinProc");
+				JoinUserFrm.submit();
 			}
 			
 		});
@@ -113,12 +114,32 @@ $(function () {
 			NewWindows_open(w, h, url, WindowTitleName);
 		});
 		
+		//계좌삭제버튼 이벤트
+		$(".UserAccount_del").click(function(){
+			var w = 500;   
+			var h = 200;  
+			var url = "/AccountRemove";
+			var WindowTitleName = "계좌삭제";
+			NewWindows_open(w, h, url, WindowTitleName);
+		});
+		
+		//계좌 선택후 삭제버튼 이벤트
+		$(".SelectAccountRemove_Btn").click(function() {
+			var selectAccount = $("#SelectAccount").val();
+			var SelectAccountFrm = $("#SelectAccountFrm");
+			if (selectAccount != 0) {
+//				console.log("selectAccount : " + selectAccount);
+				SelectAccountFrm.attr("action", "/SelectAccountRemoveProc");
+				SelectAccountFrm.submit();
+			}
+		});
+		
 		//계좌별칭 변경을 위한이벤트 
 		$("tr.userAccountListCol").click(function(){
 			var clickAccount_Number = $(this).find("td:eq(1)").attr("id");
 //			console.log(clickAccount_Number);
 			var w = 500;
-			var h = 200;
+			var h = 220;
 			var url = "/ChangedAccountName?Account_Number="+clickAccount_Number;
 			var WindowTitleName = "계좌별칭 변경";
 			NewWindows_open(w, h, url, WindowTitleName);
