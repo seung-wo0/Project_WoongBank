@@ -8,8 +8,6 @@
 <!-- 		insert into User (userID, userPW, userPhone, userEmail, Shop_code, Shop_Auth)  -->
 <!-- 		values (#{item1},#{item2},#{item3},#{item4}, 0, 0) -->
 <!-- 	</insert> -->
-
-<!-- 로그인처리 -->
 	<select id="LoginProc" resultType="int">
 		select count(*) from User where phone like #{param1} and password like #{param2}
 	</select>

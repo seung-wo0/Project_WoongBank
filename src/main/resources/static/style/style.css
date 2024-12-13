@@ -13,3 +13,134 @@ div#wrap {
     border-radius: 6px;
     margin: 20px auto;
 }
+
+header#header {
+	height: 200px;
+	text-align: center;
+	background: gray;
+	margin: 0 auto;
+	padding: 10px;
+}
+
+/*///////////////////////////////////////*/
+/* MenuNav부분 시작(inc/MenuNav_inc.jsp) */
+/*///////////////////////////////////////*/
+div#NavWrap {
+	border: 1px solid red;
+	margin: 10px 0px;
+	padding: 20px;
+	justify-content: space-between;
+}
+
+div#NavWrap span{
+	line-height: 52px;
+	padding: 0 20px;
+}
+
+#NavWrap ul li {
+	border: 1px solid blue;
+	padding: 10px;
+	font-size: 20px;
+	font-weight: bold;
+	cursor: pointer;
+}
+
+#NavWrap ul li:hover {
+	color: lime;
+}
+
+#NavWrap ul li:not(:last-child) {
+	font-size: 20px;
+	margin-right: 10px;
+}
+/*///////////////////////////////////////*/
+/*  MenuNav부분 끝(inc/MenuNav_inc.jsp)  */
+/*///////////////////////////////////////*/
+
+main#main {
+	padding: 20px;
+}
+
+/*/////////////////////////////////*/
+/* 회원가입부분 시작(JoinUser.jsp) */
+/*/////////////////////////////////*/
+#main fieldset#JoinUserFrmfd {
+	padding: 10px;
+}
+
+#main fieldset {
+	width: 600px;
+	margin: 0 auto;	
+}
+
+#main fieldset div#JoinBtnArea {
+	margin-top: 40px;
+	margin-bottom: 10px;
+	width: 400px;
+	text-align: center;
+}
+
+#main label {
+	display: block;
+	width: 400px;
+	padding: 10px;
+}
+
+#main label span.JoinUserTitle {
+	display: inline-block;
+	width: 130px;
+}
+
+#main label input {
+	width: 200px;
+}
+
+#main label input,
+#main label select {
+	padding: 2px 5px;
+}
+
+#main label input.JoinUserPhone {
+	width: 50px;
+}
+/*/////////////////////////////////*/
+/*  회원가입부분 끝(JoinUser.jsp)  */
+/*/////////////////////////////////*/
+
+
+/*/////////////////////////////////////////////*/
+/*  계좌관리부분 시작(Account/Management.jsp)  */
+/*/////////////////////////////////////////////*/
+
+#UserAccountListArea table {
+	border-collapse: collapse;
+}
+
+#UserAccountListArea tr,td {
+	border: 1px solid blue;
+	padding: 10px;
+/* 	font-weight: bold; */
+	text-align: center;
+}
+
+#UserAccountListArea tr.userAccountListCol:hover * {
+	cursor: pointer;
+	font-weight: bold;
+	color: orange;
+}
+
+/*/////////////////////////////////////////////*/
+/*   계좌관리부분 끝(Account/Management.jsp)   */
+/*/////////////////////////////////////////////*/
+
+/*//////////////////////////////////////*/
+/* Footer 부분 시작(inc/Footer_inc.jsp) */
+/*//////////////////////////////////////*/
+
+footer#footer {
+	text-align: center;
+}
+
+/*//////////////////////////////////////*/
+/*  Footer 부분 끝(inc/Footer_inc.jsp)  */
+/*//////////////////////////////////////*/

@@ -3,9 +3,6 @@
     
 <body>
 
-	<header id="header">
 		<h1>Woong Bank 헤더 부분</h1>
-	</header>
-	<!-- header#header -->
 	
 </body>
