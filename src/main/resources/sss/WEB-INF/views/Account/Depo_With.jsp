@@ -28,6 +28,17 @@
 		
 		<main id="main">
 			<h1>입·출금</h1>
+			
+			<select name="SelectDepo_With" id="SelectDepo_With">
+				<option value="0">선택해주세요</option>
+				<option value="Depo">입금</option>
+				<option value="With">출금</option>
+			</select>
+			
+			<div id="Depo_With_infoArea">
+				
+			</div>
+			
 		</main>
 		<!-- main#main -->
 		

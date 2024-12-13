@@ -49,6 +49,7 @@ public class MenuController {
 		int UserIdSession = (int) session.getAttribute("UserIdSession");
 		String UserPhoneSession = (String) session.getAttribute("UserPhoneSession");
 		String UserNameSession = (String) session.getAttribute("UserNameSession");
+		
 		Random random = new Random();
 		String AccountAdress = "7777"+ random.nextInt(100,999) + random.nextInt(100000,999999);
 		if (UserPhoneSession != null || UserPhoneSession !="") {
@@ -67,24 +68,26 @@ public class MenuController {
 		int UserIdSession = (int) session.getAttribute("UserIdSession");
 		String UserPhoneSession = (String) session.getAttribute("UserPhoneSession");
 		String UserNameSession = (String) session.getAttribute("UserNameSession");
-		Random random = new Random();
-		String AccountAdress = "7777"+ random.nextInt(100,999) + random.nextInt(100000,999999);
-		
-		System.out.println("전체 계좌 : " + AccountAdress);
-		int AccountAdressChk = accountSvc.CreateAccountChk(AccountAdress);
+		String CreateAccountNumber = req.getParameter("CreateAccountNumber");
+		String CreateAccountPassword = req.getParameter("CreateAccountPassword");
+
+		//존재하는 계좌인지 체크
+		int AccountAdressChk = accountSvc.CreateAccountChk(CreateAccountNumber);
 		
 		if (AccountAdressChk != 1) { //계좌가 존재하지 않는다면 해당계좌번호로 생성
 			Map<String, Object> map = new HashMap<>();
 			map.put("item1", UserIdSession);
-			map.put("item2", AccountAdress);
+			map.put("item2", CreateAccountNumber);
+			map.put("item3", CreateAccountPassword);
 			accountSvc.CreateAccountProc(map);
-
+			model.addAttribute("ProcMsg", "계좌 생성이 완료 되었습니다!");
 		} else { 
 			System.out.println("존재한다면 들어오는곳");
+			model.addAttribute("ProcMsg", "계좌 생성에 실패 하였습니다.");
 
 		}
 		
-		return "Account/Management/AccountCreate";
+		return "Account/Management/AccountCreateProc";
 	}
 	
 	// 계좌관리 > 계좌별칭변경 페이지
@@ -150,6 +153,20 @@ public class MenuController {
 		
 		return "Account/Depo_With";
 	}
+	
+	// 입금 페이지 AJAX
+	@RequestMapping("/Depo")
+	public String mtd_Depo_With_DepoMain () {
+		
+		return "Account/Depo_With/Depo";
+	}
+	// 출금 페이지
+	@RequestMapping("/With")
+	public String mtd_Depo_With_WithMain () {
+		
+		return "Account/Depo_With/With";
+	}
+	
 	
 	// 송금 페이지
 	@RequestMapping("/Remittance")

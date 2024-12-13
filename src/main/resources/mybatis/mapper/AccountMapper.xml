@@ -15,8 +15,8 @@
 	
 	<!-- 계좌생성 처리 -->
 	<insert id="CreateAccountProc" parameterType="java.util.Map">
-		insert into Account (user_id, bank, account_number, account_name) values
-		(#{item1}, 'Woong', #{item2}, #{item2});
+		insert into Account (user_id, bank, account_number, account_password, account_name) values
+		(#{item1}, 'Woong', #{item2}, #{item3}, #{item2});
 	</insert>
 	
 	<!-- 계좌생성시 이미 존재하는 계좌인지 체크 -->

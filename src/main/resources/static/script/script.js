@@ -113,6 +113,20 @@ $(function () {
 			var WindowTitleName = "계좌생성여부체크";
 			NewWindows_open(w, h, url, WindowTitleName);
 		});
+		//새로운계좌생성 하기위한버튼 이벤트
+		$("#CreateAccountBtn").click(function(){
+			var CreateAccountFrm = $("#CreateAccountFrm");
+			var CreateAccountPassword = $("#CreateAccountPassword").val();
+			
+			if(CreateAccountPassword.length == 4) {
+				CreateAccountFrm.attr("method", "post")
+				CreateAccountFrm.attr("action", "/AccountCreateProc")
+				CreateAccountFrm.submit();
+			} else {
+				alert("계좌 비밀번호를 입력해주세요");
+				$("#CreateAccountPassword").focus();
+			}
+		});
 		
 		//계좌삭제버튼 이벤트
 		$(".UserAccount_del").click(function(){
@@ -159,7 +173,29 @@ $(function () {
 		});
 		
 	});
+	
+	//////////////////////////////////////////
+	//  입·출금 페이지 관련(Depo_With.jsp)  //
+	//////////////////////////////////////////
+	$(document).ready(function() { 
+		$("#SelectDepo_With").change(function(){
+			
+			var SelectUrl = "/";
+			var select = $("#SelectDepo_With").val();
+			
+			if (select != 0) {
+				SelectUrl += select;
+				Depo_With_Ajax(SelectUrl);
+			} else {
+				$("#Depo_With_infoArea").html("");
+			}
+			console.log("변경됨 : " + select);
+			console.log("SelectUrl : " + SelectUrl);
 
+		});
+	});
+	
+	
 });
 
 // Nav 메뉴클릭 관련
@@ -177,4 +213,32 @@ function NewWindows_open(w, h, url, WindowTitleName) {
 	TopPosition=(screen.height-h)/2;
 	
 	window.open(url, WindowTitleName, "width="+w+",height="+h+",top="+TopPosition+",left="+LeftPosition+", scrollbars=no");
+}
+
+//Depo_With.jsp 페이지내 ajax데이터
+function Depo_With_Ajax(SelectUrl) {
+	let loading = false;
+	
+	if(!loading) {
+		loading = true;
+		$.ajax({
+			type:"get",
+			url: SelectUrl,
+			data: {
+				
+			},
+			dataType: "html",
+			async: true,
+			success: function (data) {
+				$("#Depo_With_infoArea").html(data);
+				console.log("비동기 통신 성공");
+				loading = false;
+			},
+			error: function() {
+                console.log("비동기 통신 실패");
+				loading = false;
+			}
+		});
+	}
+	
 }
