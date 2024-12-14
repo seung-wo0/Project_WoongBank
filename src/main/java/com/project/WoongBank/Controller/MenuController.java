@@ -149,22 +149,50 @@ public class MenuController {
 	
 	// 입출금 페이지
 	@RequestMapping("/Depo_With")
-	public String mtdAccount_Depo_WithMain () {
+	public String mtdAccount_Depo_WithMain (HttpServletRequest req, Model model, HttpSession session) {
+		int UserIdSession = (int) session.getAttribute("UserIdSession");
+		String UserPhoneSession = (String) session.getAttribute("UserPhoneSession");
+		String UserNameSession = (String) session.getAttribute("UserNameSession");
 		
+		int UserAccountCnt = accountSvc.UserAccountCnt(UserIdSession);
+
+		if (UserAccountCnt != 0 ) {
+			List<AccountDto> accountDto = accountSvc.UserAccountList(UserIdSession);
+			model.addAttribute("UserAccountList", accountDto);
+		}
 		return "Account/Depo_With";
 	}
 	
-	// 입금 페이지 AJAX
-	@RequestMapping("/Depo")
-	public String mtd_Depo_With_DepoMain () {
+	// 입·출금 페이지 현재잔액처리 Ajax
+	@RequestMapping("/Account_Balance")
+	public String mtd_Account_Balance (HttpServletRequest req, Model model, HttpSession session) {
+		String account_number = req.getParameter("account_number");
 		
-		return "Account/Depo_With/Depo";
+		if (account_number != "" || account_number != null || account_number!= "0") {
+			List<AccountDto> AccountDto = accountSvc.UserAccountChangedInfo(account_number);
+			model.addAttribute("AccountDto", AccountDto);
+		}
+		return "Account/Depo_With/Account_Balance";
 	}
-	// 출금 페이지
-	@RequestMapping("/With")
-	public String mtd_Depo_With_WithMain () {
+	
+	// 입·출금 처리 페이지
+	@RequestMapping("/Depo_WithProc")
+	public String mtd_Depo_With_DepoProc (HttpServletRequest req, Model model, HttpSession session) {
+//		DW_SelectAccount=7777262876670&Depo_WithBox=on&Depo_WithChk=With&Now_account_balance=0&input_balance=011
+		String account_number = req.getParameter("DW_SelectAccount"); // 입출금 거래의 계좌번호
+		String Depo_WithChk = req.getParameter("Depo_WithChk"); // 입금인 지 출금인지의 여부
+		int input_balance = Integer.parseInt(req.getParameter("input_balance")); // 거래할금액 받아오기
+		String maybe_AccountBalance = req.getParameter("maybe_AccountBalance"); // 거래후 금액 체크
 		
-		return "Account/Depo_With/With";
+		Depo_WithChk = Depo_WithChk.equals("Depo") ? "입금" : "출금";
+		
+		input_balance = Depo_WithChk.equals("입금") ? input_balance : -input_balance;
+		
+		System.out.println("입출금 거래계좌: " + account_number);
+		System.out.println("입금,출금여부 : " + Depo_WithChk);
+		System.out.println("거래금액 : " + input_balance);
+		System.out.println("거래 후 금액 : " + maybe_AccountBalance);
+		return "Account/Depo_With/Depo_WithProc";
 	}
 	
 	

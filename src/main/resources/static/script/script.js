@@ -178,21 +178,82 @@ $(function () {
 	//  입·출금 페이지 관련(Depo_With.jsp)  //
 	//////////////////////////////////////////
 	$(document).ready(function() { 
-		$("#SelectDepo_With").change(function(){
+		// 입출금 계좌선택 이벤트
+		$("#DW_SelectAccount").change(function(){
 			
-			var SelectUrl = "/";
-			var select = $("#SelectDepo_With").val();
+			var SelectAccountBalanceUrl = "/Account_Balance?account_number=";
+			var select = $("#DW_SelectAccount").val();
 			
 			if (select != 0) {
-				SelectUrl += select;
-				Depo_With_Ajax(SelectUrl);
+				SelectAccountBalanceUrl += select;
+				Depo_With_Ajax(SelectAccountBalanceUrl);
 			} else {
-				$("#Depo_With_infoArea").html("");
+				$("#Now_account_balance").val("0");
 			}
 			console.log("변경됨 : " + select);
-			console.log("SelectUrl : " + SelectUrl);
+			console.log("SelectUrl : " + SelectAccountBalanceUrl);
 
 		});
+		
+		//거래할금액 입력칸 이벤트
+		$("#input_balance").change(function(){
+			var input_balance = Number($("#input_balance").val());
+			var Now_account_balance = Number($("#Now_account_balance").val());
+			var Depo_With_CheckID = $("input[name=Depo_WithBox]:checked").attr("id");
+			let checkNum = /^[0-9]+$/;
+			if (! checkNum.test($("#input_balance").val())) {
+				alert("숫자만 입력이 가능합니다.");
+				$("#input_balance").focus();
+				$("#maybe_AccountBalance").val("");
+			} else if (input_balance > 0 || Now_account_balance != "" || Now_account_balance != null ) {
+				if (Depo_With_CheckID === "Depo") {
+					$("#maybe_AccountBalance").val(Now_account_balance + input_balance);
+				} else {
+					$("#maybe_AccountBalance").val(Now_account_balance - input_balance);
+				}
+				
+			}
+		}),$(".Depo_WithBox").change(function(){
+			var input_balance = Number($("#input_balance").val());
+			var Now_account_balance = Number($("#Now_account_balance").val());
+			var Depo_With_CheckID = $("input[name=Depo_WithBox]:checked").attr("id");
+//			console.log(Depo_With_CheckID === "Depo");
+			 if (input_balance > 0 || Now_account_balance != "" || Now_account_balance != null ) {
+				if (Depo_With_CheckID === "Depo") {
+					$("#maybe_AccountBalance").val(Now_account_balance + input_balance);
+				} else {
+					$("#maybe_AccountBalance").val(Now_account_balance - input_balance);
+				}
+				
+			}
+		});
+		
+		//입출금 거래버튼 이벤트
+		$("#Depo_WithBtn").click(function(){
+			var DW_SelectAccount = $("#DW_SelectAccount").val();
+			var Depo_With_Checked = $("input[name=Depo_WithBox]:checked");
+			var Depo_With_CheckID = Depo_With_Checked.attr("id");
+			var input_balance = $("#input_balance").val();
+			let checkNum = /^[0-9]+$/;
+			if (DW_SelectAccount == 0) {
+				alert("입·출금 할 계좌를 선택하여 주세요!");
+				$("#DW_SelectAccount").focus;
+			} else if(Depo_With_Checked.val() != "on"){
+				alert("입금 또는 출금 을 선택 하여 주세요 !");
+			} else if(input_balance == "" || input_balance == null || input_balance == "0" || !checkNum.test(input_balance)) {
+				alert("거래금액을 정확하게 입력해 주세요.");
+				$("#input_balance").focus();
+			} else {
+					var DW_SelectAccountFrm = $("#DW_SelectAccountFrm");
+					DW_SelectAccountFrm.attr("method", "post");
+					$("#Depo_WithChk").val(Depo_With_CheckID);
+					DW_SelectAccountFrm.attr("action", "Depo_WithProc");
+					$(this).attr("type", "submit");
+			}
+			
+		});
+	
+		
 	});
 	
 	
@@ -215,27 +276,27 @@ function NewWindows_open(w, h, url, WindowTitleName) {
 	window.open(url, WindowTitleName, "width="+w+",height="+h+",top="+TopPosition+",left="+LeftPosition+", scrollbars=no");
 }
 
-//Depo_With.jsp 페이지내 ajax데이터
-function Depo_With_Ajax(SelectUrl) {
+//Depo_With.jsp 페이지내 현재잔액 ajax데이터
+function Depo_With_Ajax(SelectAccountBalanceUrl) {
 	let loading = false;
 	
 	if(!loading) {
 		loading = true;
 		$.ajax({
 			type:"get",
-			url: SelectUrl,
+			url: SelectAccountBalanceUrl,
 			data: {
 				
 			},
 			dataType: "html",
 			async: true,
 			success: function (data) {
-				$("#Depo_With_infoArea").html(data);
-				console.log("비동기 통신 성공");
+				$("#Now_account_balance").val(data);
+//				console.log("비동기 통신 성공");
 				loading = false;
 			},
 			error: function() {
-                console.log("비동기 통신 실패");
+//                console.log("비동기 통신 실패");
 				loading = false;
 			}
 		});
