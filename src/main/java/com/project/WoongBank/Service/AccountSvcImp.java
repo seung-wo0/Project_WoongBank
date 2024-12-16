@@ -51,4 +51,13 @@ public class AccountSvcImp implements AccountSvc {
 		return accountDao.RemoveUserAccount(RemoveAccountNumber);
 	}
 	
+	@Override
+	public int Account_PasswordChk(String Account_Number, String Account_Password) {
+		return accountDao.Account_PasswordChk(Account_Number, Account_Password);
+	}
+	
+	@Override
+	public int Account_BalanceUpdate(String Account_Number, String maybe_AccountBalance) {
+		return accountDao.Account_BalanceUpdate(Account_Number, maybe_AccountBalance);
+	}
 }

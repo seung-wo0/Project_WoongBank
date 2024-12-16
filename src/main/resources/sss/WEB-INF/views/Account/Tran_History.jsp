@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -28,6 +29,16 @@
 		
 		<main id="main">
 			<h1>거래내역</h1>
+			<select id="SelectAccountID" name="SelectAccountID" >
+				<option value="0">거래할 계좌를 선택하세요.</option>
+				<c:forEach var="UserAccountList" items="${ UserAccountList }">
+				<option value="${ UserAccountList.id }">${ UserAccountList.account_number } - (${ UserAccountList.account_name })</option>
+				</c:forEach>
+			</select>
+			<br><br>
+			<div id="AccountTransactionListArea">
+				
+			</div>
 		</main>
 		<!-- main#main -->
 		

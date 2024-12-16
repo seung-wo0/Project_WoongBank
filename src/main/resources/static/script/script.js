@@ -234,6 +234,7 @@ $(function () {
 			var Depo_With_Checked = $("input[name=Depo_WithBox]:checked");
 			var Depo_With_CheckID = Depo_With_Checked.attr("id");
 			var input_balance = $("#input_balance").val();
+			var maybe_AccountBalance = $("#maybe_AccountBalance").val();
 			let checkNum = /^[0-9]+$/;
 			if (DW_SelectAccount == 0) {
 				alert("입·출금 할 계좌를 선택하여 주세요!");
@@ -242,6 +243,9 @@ $(function () {
 				alert("입금 또는 출금 을 선택 하여 주세요 !");
 			} else if(input_balance == "" || input_balance == null || input_balance == "0" || !checkNum.test(input_balance)) {
 				alert("거래금액을 정확하게 입력해 주세요.");
+				$("#input_balance").focus();
+			} else if (maybe_AccountBalance < 0) {
+				alert("거래잔액을 마이너스로 만들 수 없습니다.");
 				$("#input_balance").focus();
 			} else {
 					var DW_SelectAccountFrm = $("#DW_SelectAccountFrm");
@@ -256,6 +260,27 @@ $(function () {
 		
 	});
 	
+	
+	//////////////////////////////////////////
+	//  거래내역 페이지 관련(Tran_History.jsp)  //
+	//////////////////////////////////////////
+	$(document).ready(function() { 
+		// 입출금 계좌선택 이벤트
+		$("#SelectAccountID").change(function(){
+			
+			var SelectAccountBalanceUrl = "/Tran_History_List?account_id=";
+			var select = $("#SelectAccountID").val();
+			
+			if (select != 0) {
+				SelectAccountBalanceUrl += select;
+				TransactionList(SelectAccountBalanceUrl);
+			} else {
+				$("#AccountTransactionListArea").val("0");
+			}
+			console.log("변경됨 : " + select);
+			console.log("SelectUrl : " + SelectAccountBalanceUrl);
+		});
+	});
 	
 });
 
@@ -301,5 +326,31 @@ function Depo_With_Ajax(SelectAccountBalanceUrl) {
 			}
 		});
 	}
+}
+
+
+function TransactionList(SelectAccountBalanceUrl) {
+	let loading = false;
 	
+	if (!loading) {
+        loading = true;
+        $.ajax({
+            type: "get",
+            url: SelectAccountBalanceUrl,
+            data: {
+				
+        	},
+            dataType: "html",
+            async: true,
+            success: function (data) {
+                $("#AccountTransactionListArea").html(data);
+                console.log("비동기 통신 성공");
+                loading = false;
+            },
+            error: function () {
+                console.log("비동기 통신 실패");
+                loading = false;
+            }
+        });
+	}
 }

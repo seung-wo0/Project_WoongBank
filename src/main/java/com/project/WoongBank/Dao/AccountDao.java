@@ -30,4 +30,10 @@ public interface AccountDao {
 	
 	// 계좌삭제 처리 메서드
 	int RemoveUserAccount(String RemoveAccountNumber);
+	
+	// 계좌와비밀번호 일치여부반환 메서드
+	int Account_PasswordChk(String Account_Number, String Account_Password);
+	
+	// 입·출금 처리 메서드
+	int Account_BalanceUpdate(String Account_Number, String maybe_AccountBalance);
 }

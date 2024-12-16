@@ -11,7 +11,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.project.WoongBank.Dto.AccountDto;
+import com.project.WoongBank.Dto.TransactionDto;
 import com.project.WoongBank.Service.AccountSvc;
+import com.project.WoongBank.Service.TransactionSvc;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
@@ -21,6 +23,9 @@ public class MenuController {
 	
 	@Autowired
 	AccountSvc accountSvc;
+	
+	@Autowired
+	TransactionSvc transactionSvc;
 	
 	// 계좌관리 페이지
 	@RequestMapping("/Management")
@@ -178,20 +183,44 @@ public class MenuController {
 	// 입·출금 처리 페이지
 	@RequestMapping("/Depo_WithProc")
 	public String mtd_Depo_With_DepoProc (HttpServletRequest req, Model model, HttpSession session) {
-//		DW_SelectAccount=7777262876670&Depo_WithBox=on&Depo_WithChk=With&Now_account_balance=0&input_balance=011
 		String account_number = req.getParameter("DW_SelectAccount"); // 입출금 거래의 계좌번호
 		String Depo_WithChk = req.getParameter("Depo_WithChk"); // 입금인 지 출금인지의 여부
 		int input_balance = Integer.parseInt(req.getParameter("input_balance")); // 거래할금액 받아오기
 		String maybe_AccountBalance = req.getParameter("maybe_AccountBalance"); // 거래후 금액 체크
-		
+		String input_Account_Password = req.getParameter("input_Account_Password"); // 계좌비밀번호
+		String passwordChk_msg = "";
+		int passwordChk = accountSvc.Account_PasswordChk(account_number, input_Account_Password);
 		Depo_WithChk = Depo_WithChk.equals("Depo") ? "입금" : "출금";
-		
 		input_balance = Depo_WithChk.equals("입금") ? input_balance : -input_balance;
 		
+		if (passwordChk == 1) {
+			List<AccountDto> accountDto = accountSvc.UserAccountChangedInfo(account_number);
+			Map<String, Object> map = new HashMap<>();
+			map.put("item1", accountDto.get(0).getId());
+			map.put("item2", Depo_WithChk);
+			map.put("item3", input_balance);
+			map.put("item4", maybe_AccountBalance);
+			if (Depo_WithChk.equals("입금")) {
+				map.put("item5", "본인");
+				map.put("item6", "");
+			} else {
+				map.put("item5", "");
+				map.put("item6", "본인");
+			}
+			transactionSvc.Account_Balance_add(map);
+			accountSvc.Account_BalanceUpdate(account_number, maybe_AccountBalance);
+			passwordChk_msg = Depo_WithChk + " 을 완료 하였습니다.";
+		} else {
+			passwordChk_msg = Depo_WithChk + " 을 실패 하였습니다. 계좌 비밀번호를 확인해주세요";
+		}
+		model.addAttribute("passwordChk_msg", passwordChk_msg);
 		System.out.println("입출금 거래계좌: " + account_number);
 		System.out.println("입금,출금여부 : " + Depo_WithChk);
 		System.out.println("거래금액 : " + input_balance);
 		System.out.println("거래 후 금액 : " + maybe_AccountBalance);
+		System.out.println("계좌 비번 : "+  input_Account_Password);
+		
+		System.out.println("passwordChk_msg : " + passwordChk_msg);
 		return "Account/Depo_With/Depo_WithProc";
 	}
 	
@@ -203,11 +232,40 @@ public class MenuController {
 		return "Account/Remittance";
 	}
 	
-	// 거래내역 페이지
+	// 거래내역 메인 페이지
 	@RequestMapping("/Tran_History")
-	public String mtdAccount_Tran_HistoryMain () {
+	public String mtdAccount_Tran_HistoryMain (HttpServletRequest req, Model model, HttpSession session) {
+		int UserIdSession = (int) session.getAttribute("UserIdSession");
+		String UserPhoneSession = (String) session.getAttribute("UserPhoneSession");
+		String UserNameSession = (String) session.getAttribute("UserNameSession");
 		
+		int UserAccountCnt = accountSvc.UserAccountCnt(UserIdSession);
+
+		if (UserAccountCnt != 0 ) {
+			List<AccountDto> accountDto = accountSvc.UserAccountList(UserIdSession);
+			model.addAttribute("UserAccountList", accountDto);
+		}
 		return "Account/Tran_History";
 	}
+	
+	// 거래내역 메인 페이지
+		@RequestMapping("/Tran_History_List")
+		public String mtdAccount_Tran_History_List (HttpServletRequest req, Model model, HttpSession session) {
+			int UserIdSession = (int) session.getAttribute("UserIdSession");
+			String UserPhoneSession = (String) session.getAttribute("UserPhoneSession");
+			String UserNameSession = (String) session.getAttribute("UserNameSession");
+			int UserAccountCnt = accountSvc.UserAccountCnt(UserIdSession);
+			
+			int Account_id =  Integer.parseInt(req.getParameter("account_id"));
+			System.out.println(Account_id);
+			List<TransactionDto> transactionDto = transactionSvc.AccountTransactionList(Account_id);
+				model.addAttribute("AccountTransactionList", transactionDto);
+			if (UserAccountCnt != 0 ) {
+//				List<AccountDto> accountDto = accountSvc.UserAccountList(UserIdSession);
+				
+			}
+			
+			return "Account/Transaction/Tran_History_List";
+		}
 	
 }

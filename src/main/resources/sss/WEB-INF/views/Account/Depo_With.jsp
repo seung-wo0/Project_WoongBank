@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -44,9 +45,10 @@
 			<br><br>
 			거래 금액 <input type="text"  id="input_balance" name="input_balance" value="" form="DW_SelectAccountFrm">
 			<br><br>
-			
 			거래 후 잔액 <input type="text"  id="maybe_AccountBalance" name="maybe_AccountBalance" value="" form="DW_SelectAccountFrm" readonly>
 <!-- 			 <span id="maybe_AccountBalance"></span> -->
+			<br><br>
+			계좌 비밀번호 <input type="password" id="input_Account_Password" name="input_Account_Password" form="DW_SelectAccountFrm" maxlength="4" min="4">
 			<br><br>
 			<button type="button" id="Depo_WithBtn" class="Depo_WithBtn" form="DW_SelectAccountFrm">완료</button>
 			<form action="" id="DW_SelectAccountFrm"></form>

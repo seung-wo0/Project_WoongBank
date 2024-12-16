@@ -4,6 +4,7 @@
 <!DOCTYPE html>
 
 <script>
-// 	alert("입금 페이지");
-// 	window.location.href="/Depo_With"
+	var passwordChk_msg = "${passwordChk_msg}";
+	alert(passwordChk_msg);
+	window.location.href="/Depo_With"
 </script>
