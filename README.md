@@ -31,7 +31,7 @@
 
 > # DB 설계도
 >
-> <img src="[https://github.com/user-attachments/assets/af6759af-5fb6-44f5-9882-c1a44452e48b](https://github.com/user-attachments/assets/d6acdc1c-b87f-4776-af6e-f8703c73dd91)" width="100%" title="DB 설계도" />
+> <img src="https://github.com/user-attachments/assets/46de106b-56dc-490c-80ab-60d107c0f4be" width="100%" title="DB 설계도" />
 
 ---
 
