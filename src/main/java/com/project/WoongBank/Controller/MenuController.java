@@ -227,9 +227,59 @@ public class MenuController {
 	
 	// 송금 페이지
 	@RequestMapping("/Remittance")
-	public String mtdAccount_RemittanceMain () {
+	public String mtdAccount_RemittanceMain (HttpServletRequest req, Model model, HttpSession session) {
+		int UserIdSession = (int) session.getAttribute("UserIdSession");
+		String UserPhoneSession = (String) session.getAttribute("UserPhoneSession");
+		String UserNameSession = (String) session.getAttribute("UserNameSession");
 		
+		int UserAccountCnt = accountSvc.UserAccountCnt(UserIdSession);
+	
+		if (UserAccountCnt != 0 ) {
+			List<AccountDto> accountDto = accountSvc.UserAccountList(UserIdSession);
+			model.addAttribute("UserAccountList", accountDto);
+		}
 		return "Account/Remittance";
+	}
+	
+	// 송금계좌 체크
+	@RequestMapping("/Receive_Account_Chk")
+	public String mtdReceive_Account_Chk (HttpServletRequest req, Model model, HttpSession session) {
+		int UserIdSession = (int) session.getAttribute("UserIdSession");
+		String UserPhoneSession = (String) session.getAttribute("UserPhoneSession");
+		String UserNameSession = (String) session.getAttribute("UserNameSession");
+		String Receive_Account_Chk = req.getParameter("Receive_Account_Chk");
+//		int UserAccountCnt = accountSvc.UserAccountCnt(UserIdSession);
+		// 계좌가 모든회원계좌에서 존재하는지 여부 체크
+		int ReceiveAccountChk = accountSvc.CreateAccountChk(Receive_Account_Chk);
+		System.out.println("ReceiveAccountChk : " + ReceiveAccountChk);
+		String ReceiveAccountChkMsg = "";
+		if (ReceiveAccountChk != 0 ) {
+			ReceiveAccountChkMsg = "이체 가능";
+		} else {
+			ReceiveAccountChkMsg = "이체 불가능";
+		}
+		model.addAttribute("ReceiveAccountChkMsg", ReceiveAccountChkMsg);
+		return "Account/Remittance/receive_account_Chk";
+	}
+	// 송금계좌 체크
+	@RequestMapping("/Receive_AccountPW_Chk")
+	public String mtdReceive_AccountPW_Chk (HttpServletRequest req, Model model, HttpSession session) {
+		int UserIdSession = (int) session.getAttribute("UserIdSession");
+		String UserPhoneSession = (String) session.getAttribute("UserPhoneSession");
+		String UserNameSession = (String) session.getAttribute("UserNameSession");
+		String Receive_Account_Chk = req.getParameter("Receive_Account_Chk");
+//		int passwordChk = accountSvc.Account_PasswordChk(account_number, input_Account_Password);
+		// 계좌가 모든회원계좌에서 존재하는지 여부 체크
+		int ReceiveAccountChk = accountSvc.CreateAccountChk(Receive_Account_Chk);
+		System.out.println("ReceiveAccountChk : " + ReceiveAccountChk);
+		String ReceiveAccountChkMsg = "";
+		if (ReceiveAccountChk != 0 ) {
+			ReceiveAccountChkMsg = "이체 가능";
+		} else {
+			ReceiveAccountChkMsg = "이체 불가능";
+		}
+		model.addAttribute("ReceiveAccountChkMsg", ReceiveAccountChkMsg);
+		return "Account/Remittance/receive_accountPW_Chk";
 	}
 	
 	// 거래내역 메인 페이지

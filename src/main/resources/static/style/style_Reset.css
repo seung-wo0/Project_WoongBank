@@ -57,5 +57,6 @@ button {
 	padding: 0px 5px;
 	font-size: 20px;
 	font-weight: bold;
+	cursor: pointer;
 }
 /*///////////////////////// CSS 리셋 파일 끝 /////////////////////////*/

@@ -283,6 +283,63 @@ $(function () {
 		});
 	});
 	
+	////////////////////////////////////////
+	//  송금 페이지 관련(Remittance.jsp)  //
+	////////////////////////////////////////
+	$(document).ready(function() { 
+		// 송금 계좌선택 이벤트
+		$("#Select_RiAccountID").change(function(){
+			
+			var select = $("#Select_RiAccountID").val();
+			
+			if (select != 0) {
+				console.log("계좌선택함");
+				$("#receive_account").removeAttr("disabled");
+				$("#receive_account").focus();
+//				$(this).attr("disabled", "disabled");
+				
+			} else {
+				$("#receive_account").val("");
+				$("#receive_account").attr("disabled", "disabled");
+				$("#receive_amount").val("");
+				$("#receive_amount").attr("disabled", "disabled");
+				
+			}
+
+		});
+		
+		// 송금 계좌선택 후 이체계좌 입력 이벤트
+		$("#receive_account").change(function(){
+			var receive_account_length = $("#receive_account").val().length;
+			if (receive_account_length == 13) {
+				var receive_account = $("#receive_account").val();
+				receive_account_chk(receive_account);
+			} 
+		});
+		
+		// 이체계좌 및 금액 입력 후 이벤트
+		$("#receive_amount").change(function(){
+			var receive_amount = $("#receive_amount").val();
+			if (receive_amount > 0 || receive_amount != "") {
+				$("#UserAccountPW").removeAttr("disabled");
+			} else {
+				$("#UserAccountPW").val("");
+				$("#UserAccountPW").attr("disabled", "disabled");
+			}
+		});
+		
+		// 출금계좌 패스워드 입력 이벤트
+		$("#UserAccountPW").change(function(){
+			var UserAccountPW = $("#UserAccountPW").val();
+			if (UserAccountPW.length == 4) {
+				
+			} 
+			console.log("UserAccountPW : " + UserAccountPW.length);
+		});
+		
+	});	
+	
+	
 });
 
 // Nav 메뉴클릭 관련
@@ -345,11 +402,48 @@ function TransactionList(SelectAccountBalanceUrl, select) {
             async: true,
             success: function (data) {
                 $("#AccountTransactionListArea").html(data);
-                console.log("비동기 통신 성공");
+//                console.log("비동기 통신 성공");
                 loading = false;
             },
             error: function () {
-                console.log("비동기 통신 실패");
+//                console.log("비동기 통신 실패");
+                loading = false;
+            }
+        });
+	}
+}
+
+function receive_account_chk(receive_account_chkNum) {
+	let loading = false;
+	
+	if (!loading) {
+        loading = true;
+        $.ajax({
+            type: "get",
+            url: "/Receive_Account_Chk",
+            data: {
+				"Receive_Account_Chk":  receive_account_chkNum
+        	},
+            dataType: "html",
+            async: true,
+            success: function (data) {
+                $("#Ri_accountChk").html(data);
+//                console.log("비동기 통신 성공");
+				var targetSpan = $("#ReceiveAccountChkMsg").text();
+				if (targetSpan == "이체 가능") {
+//					console.log("비동기 이체결과 : " + targetSpan);
+					$("#receive_amount").removeAttr("disabled");
+					$("#receive_amount").focus();
+				} else {
+//					console.log("비동기 이체결과 : " + targetSpan);
+					$("#receive_amount").val("");
+					$("#receive_amount").attr("disabled", "disabled");
+				}
+				
+                loading = false;
+            },
+            error: function () {
+//                console.log("비동기 통신 실패");
                 loading = false;
             }
         });
