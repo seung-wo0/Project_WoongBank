@@ -25,7 +25,6 @@
 		<td class="receive_account">${ AccountTransactionList.receive_account }</td>
 		<td class="transaction_TM">
 			<fmt:formatDate value="${ AccountTransactionList.transaction_TM }" pattern="yyyy-MM-dd hh:mm:ss"/>
-<%-- 			${ AccountTransactionList.transaction_TM } --%>
 		</td>
 	</tr>
 </c:forEach>

@@ -261,24 +261,25 @@ $(function () {
 	});
 	
 	
-	//////////////////////////////////////////
+	//////////////////////////////////////////////
 	//  거래내역 페이지 관련(Tran_History.jsp)  //
-	//////////////////////////////////////////
+	//////////////////////////////////////////////
 	$(document).ready(function() { 
 		// 입출금 계좌선택 이벤트
 		$("#SelectAccountID").change(function(){
 			
-			var SelectAccountBalanceUrl = "/Tran_History_List?account_id=";
+//			var SelectAccountBalanceUrl = "/Tran_History_List?account_id=";
+			var SelectAccountBalanceUrl = "/Tran_History_List";
 			var select = $("#SelectAccountID").val();
-			
-			if (select != 0) {
-				SelectAccountBalanceUrl += select;
-				TransactionList(SelectAccountBalanceUrl);
-			} else {
-				$("#AccountTransactionListArea").val("0");
-			}
-			console.log("변경됨 : " + select);
-			console.log("SelectUrl : " + SelectAccountBalanceUrl);
+			TransactionList(SelectAccountBalanceUrl, select);
+//			if (select != 0) {
+//				SelectAccountBalanceUrl += select;
+//				TransactionList(SelectAccountBalanceUrl);
+//			} else {
+//				$("#AccountTransactionListArea").val("0");
+//			}
+//			console.log("변경됨 : " + select);
+//			console.log("SelectUrl : " + SelectAccountBalanceUrl);
 		});
 	});
 	
@@ -329,7 +330,7 @@ function Depo_With_Ajax(SelectAccountBalanceUrl) {
 }
 
 
-function TransactionList(SelectAccountBalanceUrl) {
+function TransactionList(SelectAccountBalanceUrl, select) {
 	let loading = false;
 	
 	if (!loading) {
@@ -338,7 +339,7 @@ function TransactionList(SelectAccountBalanceUrl) {
             type: "get",
             url: SelectAccountBalanceUrl,
             data: {
-				
+				"account_id": select 
         	},
             dataType: "html",
             async: true,
